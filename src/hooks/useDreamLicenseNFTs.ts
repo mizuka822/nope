@@ -73,12 +73,12 @@ export const useDreamLicenseNFTs = (provider: ethers.BrowserProvider | null, add
       setNfts(validNFTs);
 
     } catch (err: any) {
-      console.error('Failed to fetch NFTs:', err);
-      
       // Handle specific ethers decoding errors for mock contract
       if (err.code === 'BAD_DATA' && err.info?.method === 'balanceOf') {
+        console.warn('DreamLicense contract not deployed on current network - using demo NFTs:', err.message);
         setError('DreamLicense contract not deployed on current network. Showing demo NFTs.');
       } else {
+        console.error('Failed to fetch NFTs:', err);
         setError(err.message || 'Failed to fetch NFTs');
       }
       
