@@ -12,7 +12,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
     {
       id: '1',
       name: 'Aurora',
-      image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: '/。.jpg',
       personality: 'Gentle, empathetic, loves poetry and stargazing',
       interactions: 1247,
       rating: 4.9,
