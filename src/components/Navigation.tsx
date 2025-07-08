@@ -23,13 +23,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 flex items-center justify-center animate-pulse">
-              <Eye className="w-6 h-6 text-white" />
-            </div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent">
-              Melodyn
-            </h1>
+          <div className="flex items-center space-x-4">
             <UserMenu
               user={user}
               isAuthenticated={isAuthenticated}
@@ -38,6 +32,12 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
               isLoading={isLoading}
               error={error}
             />
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 flex items-center justify-center animate-pulse">
+              <Eye className="w-6 h-6 text-white" />
+            </div>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent">
+              Melodyn
+            </h1>
           </div>
           
           <div className="flex space-x-1">
