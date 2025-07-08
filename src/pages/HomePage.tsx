@@ -22,7 +22,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
       id: '2',
       name: 'Jarvis',
       image: '/k.jpg',
-      personality: 'Adventurous, playful, tech-savvy dreamer',
+      personality: 'MLB superstar | Precision with a heartbeat',
       interactions: 892,
       rating: 4.8,
       price: '1.8 ETH'
