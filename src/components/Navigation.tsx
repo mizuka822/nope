@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Shield, Sparkles, Headphones } from 'lucide-react';
+import { Zap, Eye, Star, Waves } from 'lucide-react';
 
 interface NavigationProps {
   currentPage: string;
@@ -8,11 +8,11 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) => {
   const navItems = [
-    { id: 'home', label: 'Home', icon: Heart },
-    { id: 'dreamlicense', label: 'DreamLicense', icon: Sparkles },
-    { id: 'ai-companion', label: 'AI Companion', icon: Heart },
-    { id: 'privacy', label: 'Privacy', icon: Shield },
-    { id: 'xr-immersion', label: 'XR Experience', icon: Headphones },
+    { id: 'home', label: 'Home', icon: Star },
+    { id: 'dreamlicense', label: 'DreamLicense', icon: Eye },
+    { id: 'ai-companion', label: 'AI Companion', icon: Zap },
+    { id: 'privacy', label: 'Privacy', icon: Eye },
+    { id: 'xr-immersion', label: 'XR Experience', icon: Waves },
   ];
 
   return (
@@ -20,10 +20,10 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-200 to-gray-300 flex items-center justify-center">
-              <Heart className="w-5 h-5 text-pink-600" />
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 flex items-center justify-center animate-pulse">
+              <Eye className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-xl font-bold bg-gradient-to-r from-pink-600 to-gray-600 bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent">
               Melodyn
             </h1>
           </div>
@@ -35,13 +35,13 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
                 <button
                   key={item.id}
                   onClick={() => onPageChange(item.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  className={`px-5 py-2 rounded-full text-base font-medium transition-all duration-300 ${
                     currentPage === item.id
-                      ? 'bg-white/20 text-pink-600 shadow-lg'
-                      : 'text-gray-600 hover:bg-white/10 hover:text-pink-500'
+                      ? 'bg-gradient-to-r from-purple-500/30 via-pink-500/30 to-orange-500/30 text-purple-700 shadow-lg shadow-purple-500/20'
+                      : 'text-gray-700 hover:bg-gradient-to-r hover:from-purple-500/10 hover:via-pink-500/10 hover:to-orange-500/10 hover:text-purple-600'
                   }`}
                 >
-                  <Icon className="w-4 h-4 inline mr-2" />
+                  <Icon className="w-5 h-5 inline mr-2" />
                   {item.label}
                 </button>
               );
