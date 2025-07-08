@@ -21,7 +21,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
     {
       id: '2',
       name: 'Zara',
-      image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: '/k.jpg',
       personality: 'Adventurous, playful, tech-savvy dreamer',
       interactions: 892,
       rating: 4.8,
