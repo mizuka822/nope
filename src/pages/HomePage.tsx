@@ -11,7 +11,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
   const dreamLicenses = [
     {
       id: '1',
-      name: 'Aurora',
+      name: 'Moon Harim',
       image: '/。.jpg',
       personality: 'Gentle, empathetic, loves poetry and stargazing',
       interactions: 1247,
