@@ -1,7 +1,78 @@
 import React from 'react';
-import { Sparkles, Shield, Zap, Users, Star, Heart } from 'lucide-react';
+import { useState } from 'react';
+import { Sparkles } from 'lucide-react';
+import { useWallet } from '../hooks/useWallet';
+import { useDreamLicenseNFTs } from '../hooks/useDreamLicenseNFTs';
+import { useZKProof } from '../hooks/useZKProof';
+import WalletConnection from '../components/WalletConnection';
+import NFTSelector from '../components/NFTSelector';
+import ZKVerification from '../components/ZKVerification';
+import VerifiedChatInterface from '../components/VerifiedChatInterface';
+import { DreamLicenseNFT, VerificationData } from '../types/dreamlicense';
 
 const DreamLicensePage: React.FC = () => {
+  const { wallet, connectWallet, disconnectWallet, isConnecting, error: walletError } = useWallet();
+  const { nfts, loading: nftsLoading, error: nftsError, refetch } = useDreamLicenseNFTs(wallet.provider, wallet.address);
+  const { proof, isGenerating, error: proofError, generateProof, clearProof } = useZKProof();
+  
+  const [selectedNFT, setSelectedNFT] = useState<DreamLicenseNFT | null>(null);
+  const [chatSession, setChatSession] = useState<VerificationData | null>(null);
+
+  const handleNFTSelect = (nft: DreamLicenseNFT) => {
+    setSelectedNFT(nft);
+    clearProof();
+  };
+
+  const handleGenerateProof = async () => {
+    if (!selectedNFT || !wallet.address) return;
+    await generateProof(wallet.address, selectedNFT.tokenId);
+  };
+
+  const handleStartChat = () => {
+    if (!selectedNFT || !wallet.address || !proof) return;
+    
+    const verificationData: VerificationData = {
+      walletAddress: wallet.address,
+      nftId: selectedNFT.tokenId,
+      zkProof: proof,
+      timestamp: Date.now(),
+    };
+    
+    setChatSession(verificationData);
+  };
+
+  const handleEndSession = () => {
+    setChatSession(null);
+    setSelectedNFT(null);
+    clearProof();
+  };
+
+  // If in chat session, show the verified chat interface
+  if (chatSession && selectedNFT) {
+    return (
+      <div className="pt-20 pb-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <Sparkles className="w-12 h-12 mx-auto mb-4 text-pink-600" />
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-gray-600 bg-clip-text text-transparent mb-2">
+              Verified Chat Session
+            </h1>
+            <p className="text-gray-600">
+              Private conversation with {selectedNFT.metadata.name}
+            </p>
+          </div>
+          
+          <VerifiedChatInterface
+            verificationData={chatSession}
+            companionName={selectedNFT.metadata.name}
+            companionImage={selectedNFT.metadata.image}
+            onEndSession={handleEndSession}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="pt-20 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,77 +82,45 @@ const DreamLicensePage: React.FC = () => {
             DreamLicense NFT
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Mint exclusive NFT licenses with ZK authorization for your dream figures
+            Access your exclusive AI companions with zero-knowledge verification
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">How It Works</h2>
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-pink-500/20 to-gray-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-bold text-pink-600">1</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-800 mb-2">Upload Dream Data</h3>
-                  <p className="text-sm text-gray-600">Idols and virtual characters upload their personality, voice, and interaction styles</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-pink-500/20 to-gray-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-bold text-pink-600">2</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-800 mb-2">Mint NFT License</h3>
-                  <p className="text-sm text-gray-600">Create a unique ERC-721 NFT that serves as an exclusive license for fantasy use</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-pink-500/20 to-gray-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-bold text-pink-600">3</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-800 mb-2">ZK Authorization</h3>
-                  <p className="text-sm text-gray-600">Zero-knowledge proofs ensure private, secure access to dream experiences</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="space-y-8">
+          {/* Step 1: Connect Wallet */}
+          <WalletConnection
+            isConnected={wallet.isConnected}
+            address={wallet.address}
+            isConnecting={isConnecting}
+            error={walletError}
+            onConnect={connectWallet}
+            onDisconnect={disconnectWallet}
+          />
 
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">License Features</h2>
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <Shield className="w-5 h-5 text-pink-600" />
-                <span className="text-gray-700">Zero-Knowledge Privacy Protection</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Zap className="w-5 h-5 text-pink-600" />
-                <span className="text-gray-700">Non-Transferable & Exclusive</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Users className="w-5 h-5 text-pink-600" />
-                <span className="text-gray-700">Personalized AI Companion</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Star className="w-5 h-5 text-pink-600" />
-                <span className="text-gray-700">Premium Interaction Quality</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Heart className="w-5 h-5 text-pink-600" />
-                <span className="text-gray-700">Memory & Personality Evolution</span>
-              </div>
-            </div>
-          </div>
-        </div>
+          {/* Step 2: Select NFT (only show if wallet connected) */}
+          {wallet.isConnected && (
+            <NFTSelector
+              nfts={nfts}
+              loading={nftsLoading}
+              error={nftsError}
+              selectedNFT={selectedNFT}
+              onSelect={handleNFTSelect}
+              onRefetch={refetch}
+            />
+          )}
 
-        <div className="text-center">
-          <button className="bg-gradient-to-r from-pink-500/20 to-gray-500/20 backdrop-blur-sm border border-white/30 rounded-xl py-4 px-8 text-lg font-medium text-gray-700 hover:from-pink-500/30 hover:to-gray-500/30 hover:border-white/50 transition-all duration-300 shadow-lg hover:shadow-pink-500/20">
-            Browse Available Licenses
-          </button>
+          {/* Step 3: ZK Verification (only show if NFT selected) */}
+          {selectedNFT && wallet.address && (
+            <ZKVerification
+              selectedNFT={selectedNFT}
+              walletAddress={wallet.address}
+              proof={proof}
+              isGenerating={isGenerating}
+              error={proofError}
+              onGenerateProof={handleGenerateProof}
+              onStartChat={handleStartChat}
+            />
+          )}
         </div>
       </div>
     </div>
