@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Navigation from './components/Navigation';
+import AuthCallback from './components/AuthCallback';
 import HomePage from './pages/HomePage';
 import DreamLicensePage from './pages/DreamLicensePage';
 import AICompanionPage from './pages/AICompanionPage';
@@ -8,6 +9,11 @@ import XRImmersionPage from './pages/XRImmersionPage';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+
+  // Handle OAuth callback route
+  if (window.location.pathname === '/auth/callback') {
+    return <AuthCallback />;
+  }
 
   const renderPage = () => {
     switch (currentPage) {
