@@ -40,7 +40,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
       id: '4',
       name: 'Suzuki Haruka',
       image: '/屏幕截图 2025-07-02 163516.png',
-      personality: 'kpop star/actress',
+      personality: 'TV actress | A smile soft as morning rain',
       interactions: 945,
       rating: 4.8,
       price: '2.1 ETH'
