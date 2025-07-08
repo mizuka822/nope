@@ -9,7 +9,7 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) => {
-  const { user, isAuthenticated, isLoading, loginWithGoogle, loginWithEmail, logout } = useAuth();
+  const { user, isAuthenticated, isLoading, error, loginWithWallet, logout } = useAuth();
 
   const navItems = [
     { id: 'home', label: 'Home', icon: Star },
@@ -33,9 +33,10 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
             <UserMenu
               user={user}
               isAuthenticated={isAuthenticated}
-              onLoginWithGoogle={loginWithGoogle}
-              onLoginWithEmail={loginWithEmail}
+              onLoginWithWallet={loginWithWallet}
               onLogout={logout}
+              isLoading={isLoading}
+              error={error}
             />
           </div>
           
