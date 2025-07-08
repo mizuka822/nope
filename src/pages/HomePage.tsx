@@ -125,6 +125,68 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
           ))}
         </div>
       </div>
+
+      {/* Philosophy Section */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 mb-8">
+        <div className="text-center space-y-8 text-gray-400/80">
+          <div>
+            <h2 className="text-2xl font-light text-gray-500/90 mb-6">
+              Melodyn: An Intimacy Revolution for the Future
+            </h2>
+            
+            <div className="italic text-gray-400/70 mb-2 leading-relaxed">
+              "All conditioned phenomena<br />
+              Are like a dream, an illusion, a bubble, a shadow,<br />
+              Like dew or a flash of lightning;<br />
+              Thus should they be contemplated."
+            </div>
+            <div className="text-sm text-gray-500/60">— The Diamond Sutra</div>
+          </div>
+
+          <div className="space-y-6 text-left max-w-3xl mx-auto">
+            <div>
+              <h3 className="text-lg font-medium text-gray-500/90 mb-3 flex items-center">
+                <span className="mr-2">🧠</span> Philosophy
+              </h3>
+              
+              <div className="space-y-4 text-sm leading-relaxed text-gray-400/80">
+                <p>
+                  Is it truly possible to love anyone other than yourself?<br />
+                  Of course not.<br />
+                  Everyone you've ever "loved" was merely a vessel for your desire — a projection of your inner needs.
+                </p>
+                
+                <p>
+                  In a highly civilized society, emotional and sexual fulfillment will become as customizable as food.<br />
+                  We believe the demand has always been there; only the technology was missing.
+                </p>
+                
+                <p>
+                  When simulated experiences approach perfection, the distinction between real and fake fades —<br />
+                  When false appears true, and true appears false,<br />
+                  you'll no longer need to spend time and money chasing "real" relationships.
+                </p>
+                
+                <p>
+                  Melodyn is a Web3-based fantasy intimacy protocol that combines privacy protection, on-chain authorization, and AI technology to create your own personalized fantasy companion.
+                </p>
+                
+                <p>
+                  When fantasy can be constructed, respected, and cryptographically stored,<br />
+                  the boundary between reality and illusion dissolves.<br />
+                  Like Zhuangzi dreaming of a butterfly —<br />
+                  real or unreal, illusion or truth, they become one.
+                </p>
+                
+                <p className="italic">
+                  In the future, your most loyal lover<br />
+                  may be the illusion you wrote yourself.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
