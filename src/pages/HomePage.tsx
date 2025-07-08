@@ -38,7 +38,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
     },
     {
       id: '4',
-      name: 'Nova',
+      name: 'Suzuki Haruka',
       image: '/屏幕截图 2025-07-02 163516.png',
       personality: 'Energetic, optimistic, fitness enthusiast',
       interactions: 945,
