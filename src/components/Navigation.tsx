@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, Eye, Star, Waves } from 'lucide-react';
+import { Zap, Eye, Star, Waves, Sparkles } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import UserMenu from './UserMenu';
 
@@ -25,7 +25,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
         <div className="flex items-center justify-center h-16 relative">
           <div className="absolute left-0 flex items-center space-x-4">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 flex items-center justify-center animate-pulse">
-              <Eye className="w-6 h-6 text-white" />
+              <Sparkles className="w-6 h-6 text-white" />
             </div>
             <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent">
               Melodyn
