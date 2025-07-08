@@ -143,8 +143,6 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
             </div>
             
             <div className="space-y-4 text-left">
-              <h3 className="font-semibold text-gray-700 text-center mb-3">Philosophy</h3>
-              
               <p>Is it truly possible to love someone other than yourself?</p>
               <p>Of course not.</p>
               <p>Everyone you've ever "loved" was merely a vessel for your desire — a projection of your internal needs.</p>
