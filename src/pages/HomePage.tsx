@@ -1,18 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import DreamLicenseCard from '../components/DreamLicenseCard';
 import FeatureCard from '../components/FeatureCard';
-import { Sparkles, Heart, Shield, Headphones, Search } from 'lucide-react';
+import { Sparkles, Heart, Shield, Headphones } from 'lucide-react';
 
 interface HomePageProps {
   onPageChange: (page: string) => void;
-  onCharacterSelect: (character: any) => void;
-  isLoggedIn: boolean;
-  username: string;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ onPageChange, onCharacterSelect, isLoggedIn, username }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-
+const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
   const dreamLicenses = [
     {
       id: '1',
@@ -21,8 +16,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange, onCharacterSelect, is
       personality: 'Gentle, empathetic, loves poetry and stargazing',
       interactions: 1247,
       rating: 4.9,
-      price: '2.5 ETH',
-      tags: ['gentle', 'poetry', 'romantic']
+      price: '2.5 ETH'
     },
     {
       id: '2',
@@ -31,8 +25,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange, onCharacterSelect, is
       personality: 'Adventurous, playful, tech-savvy dreamer',
       interactions: 892,
       rating: 4.8,
-      price: '1.8 ETH',
-      tags: ['adventurous', 'playful', 'tech']
+      price: '1.8 ETH'
     },
     {
       id: '3',
@@ -41,8 +34,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange, onCharacterSelect, is
       personality: 'Mysterious, artistic, loves deep conversations',
       interactions: 634,
       rating: 4.7,
-      price: '3.2 ETH',
-      tags: ['mysterious', 'artistic', 'deep']
+      price: '3.2 ETH'
     },
     {
       id: '4',
@@ -51,8 +43,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange, onCharacterSelect, is
       personality: 'Energetic, optimistic, fitness enthusiast',
       interactions: 945,
       rating: 4.8,
-      price: '2.1 ETH',
-      tags: ['energetic', 'optimistic', 'fitness']
+      price: '2.1 ETH'
     }
   ];
 
@@ -83,53 +74,19 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange, onCharacterSelect, is
     }
   ];
 
-  const filteredCharacters = dreamLicenses.filter(character =>
-    character.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    character.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
-
   return (
     <div className="pt-20 pb-12">
-      {/* Welcome Section */}
-      {isLoggedIn && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-          <div className="text-left">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-              Hi, {username}
-            </h2>
-            
-            {/* Search Bar */}
-            <div className="relative max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search characters by name or tags..."
-                className="w-full pl-10 pr-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:border-pink-500/50 transition-colors shadow-lg"
-                style={{
-                  backdropFilter: 'blur(10px)',
-                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
-                }}
-              />
-            </div>
-          </div>
+      {/* Hero Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-pink-600 to-gray-600 bg-clip-text text-transparent mb-4">
+            Welcome to Melodyn
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            The future of intimate connection through Web3 technology, AI companions, and immersive experiences
+          </p>
         </div>
-      )}
-
-      {/* Hero Section for non-logged in users */}
-      {!isLoggedIn && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-pink-600 to-gray-600 bg-clip-text text-transparent mb-4">
-              Welcome to Melodyn
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              A Web3-based fantasy intimacy protocol that combines privacy protection, on-chain authorization, and AI technology to create your exclusive fantasy companion.
-            </p>
-          </div>
-        </div>
-      )}
+      </div>
 
       {/* New DreamLicense NFTs Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
@@ -141,12 +98,8 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange, onCharacterSelect, is
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredCharacters.map((dreamLicense) => (
-            <DreamLicenseCard 
-              key={dreamLicense.id} 
-              dreamLicense={dreamLicense}
-              onSelect={() => onCharacterSelect(dreamLicense)}
-            />
+          {dreamLicenses.map((dreamLicense) => (
+            <DreamLicenseCard key={dreamLicense.id} dreamLicense={dreamLicense} />
           ))}
         </div>
       </div>
