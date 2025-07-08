@@ -39,7 +39,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
     {
       id: '4',
       name: 'Nova',
-      image: 'https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: '/屏幕截图 2025-07-02 163516.png',
       personality: 'Energetic, optimistic, fitness enthusiast',
       interactions: 945,
       rating: 4.8,
