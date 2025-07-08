@@ -125,6 +125,50 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
           ))}
         </div>
       </div>
+
+      {/* Philosophy Section */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 pb-8">
+        <div className="text-center opacity-40">
+          <h2 className="text-lg font-bold text-gray-700 mb-4">
+            Melodyn: An Intimacy Revolution for the Future
+          </h2>
+          
+          <div className="text-xs text-gray-600 leading-relaxed space-y-4 max-w-3xl mx-auto">
+            <div className="italic mb-6">
+              <p>"All conditioned phenomena</p>
+              <p>Are like a dream, an illusion, a bubble, a shadow,</p>
+              <p>Like dew or a flash of lightning;</p>
+              <p>Thus should they be contemplated."</p>
+              <p className="mt-2">— The Diamond Sutra</p>
+            </div>
+            
+            <div className="space-y-4 text-left">
+              <h3 className="font-semibold text-gray-700 text-center mb-3">Philosophy</h3>
+              
+              <p>Is it truly possible to love someone other than yourself?</p>
+              <p>Of course not.</p>
+              <p>Everyone you've ever "loved" was merely a vessel for your desire — a projection of your internal needs.</p>
+              
+              <p>In a highly advanced civilization, emotional and sexual fulfillment will become as precisely customizable as food.</p>
+              <p>We believe this future lacks not desire, but the technological means to realize it.</p>
+              
+              <p>Once simulation reaches its peak, the question of real vs. fake becomes irrelevant —</p>
+              <p>When the false becomes real and the real becomes false,</p>
+              <p>you'll no longer need to spend immense time or money chasing "real" relationships.</p>
+              
+              <p>Melodyn is a fantasy intimacy protocol built on Web3, integrating privacy-preserving technologies, on-chain authorization, and AI to create a tailor-made companion just for you.</p>
+              
+              <p>When fantasy can be constructed, respected, and securely stored through encryption,</p>
+              <p>the boundary between real and virtual fades away —</p>
+              <p>like Zhuangzi dreaming of the butterfly,</p>
+              <p>both true and false, both illusion and reality.</p>
+              
+              <p className="italic">In the future, your most loyal lover</p>
+              <p className="italic">might just be the illusion you wrote yourself.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
