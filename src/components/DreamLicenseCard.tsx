@@ -25,10 +25,6 @@ const DreamLicenseCard: React.FC<DreamLicenseCardProps> = ({ dreamLicense }) => 
           className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <div className="absolute top-3 right-3 bg-yellow-500/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center space-x-1">
-          <Star className="w-3 h-3 text-white" />
-          <span className="text-xs text-white font-medium">{dreamLicense.rating}</span>
-        </div>
       </div>
       
       <h3 className="text-lg font-semibold text-gray-800 mb-2">{dreamLicense.name}</h3>
