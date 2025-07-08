@@ -31,7 +31,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
       id: '3',
       name: 'Rin',
       image: '/屏幕截图 2025-07-02 171300.png',
-      personality: 'Mysterious, artistic, loves deep conversations',
+      personality: 'Virtual singer | Digital soul, infinite feeling',
       interactions: 634,
       rating: 4.7,
       price: '3.2 ETH'
