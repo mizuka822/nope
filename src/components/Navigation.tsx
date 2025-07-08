@@ -1,5 +1,7 @@
 import React from 'react';
 import { Zap, Eye, Star, Waves } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
+import UserMenu from './UserMenu';
 
 interface NavigationProps {
   currentPage: string;
@@ -7,6 +9,8 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) => {
+  const { user, isAuthenticated, isLoading, loginWithGoogle, loginWithEmail, logout } = useAuth();
+
   const navItems = [
     { id: 'home', label: 'Home', icon: Star },
     { id: 'dreamlicense', label: 'DreamLicense', icon: Eye },
@@ -26,6 +30,13 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
             <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent">
               Melodyn
             </h1>
+            <UserMenu
+              user={user}
+              isAuthenticated={isAuthenticated}
+              onLoginWithGoogle={loginWithGoogle}
+              onLoginWithEmail={loginWithEmail}
+              onLogout={logout}
+            />
           </div>
           
           <div className="flex space-x-1">
