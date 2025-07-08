@@ -20,7 +20,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
     },
     {
       id: '2',
-      name: 'Zara',
+      name: 'Jarvis',
       image: '/k.jpg',
       personality: 'Adventurous, playful, tech-savvy dreamer',
       interactions: 892,
