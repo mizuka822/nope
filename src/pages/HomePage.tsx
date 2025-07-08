@@ -13,7 +13,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
       id: '1',
       name: 'Moon Harim',
       image: '/。.jpg',
-      personality: 'Gentle, empathetic, loves poetry and stargazing',
+      personality: 'kpop star/actress',
       interactions: 1247,
       rating: 4.9,
       price: '2.5 ETH'
