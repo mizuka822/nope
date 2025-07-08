@@ -29,7 +29,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
     },
     {
       id: '3',
-      name: 'Luna',
+      name: 'Rin',
       image: '/屏幕截图 2025-07-02 171300.png',
       personality: 'Mysterious, artistic, loves deep conversations',
       interactions: 634,
