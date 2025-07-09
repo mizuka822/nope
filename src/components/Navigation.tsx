@@ -39,7 +39,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
                 <button
                   key={item.id}
                   onClick={() => onPageChange(item.id)}
-                  className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 flex flex-col items-center space-y-1 ${
+                  className={`w-24 px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 flex flex-col items-center space-y-1 ${
                     currentPage === item.id
                       ? 'bg-gradient-to-r from-purple-500/30 via-pink-500/30 to-orange-500/30 text-purple-700 shadow-lg shadow-purple-500/20'
                       : 'text-gray-700 hover:bg-gradient-to-r hover:from-purple-500/10 hover:via-pink-500/10 hover:to-orange-500/10 hover:text-purple-600'
