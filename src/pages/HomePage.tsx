@@ -128,7 +128,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
 
       {/* Philosophy Section */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 pb-8">
-        <div className="text-center opacity-40">
+        <div className="text-center opacity-0">
           <h2 className="text-lg font-bold text-gray-700 mb-4">
             Melodyn: An Intimacy Revolution for the Future
           </h2>
