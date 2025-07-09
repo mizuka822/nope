@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Sparkles } from 'lucide-react';
+import { Heart, Sparkles, Hash } from 'lucide-react';
 
 interface DreamLicenseData {
   id: string;
@@ -9,6 +9,7 @@ interface DreamLicenseData {
   interactions: number;
   rating: number;
   price: string;
+  ownedCount?: number; // Number of tokens owned by user
 }
 
 interface DreamLicenseCardProps {
@@ -50,9 +51,17 @@ const DreamLicenseCard: React.FC<DreamLicenseCardProps> = ({ dreamLicense }) => 
       {/* Content section */}
       <div className="relative z-10">
         {/* Name with enhanced typography */}
-        <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-pink-700 transition-colors duration-300 flex items-center space-x-2">
-          <span>{dreamLicense.name}</span>
-          <Sparkles className="w-4 h-4 text-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-pink-700 transition-colors duration-300 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <span>{dreamLicense.name}</span>
+            <Sparkles className="w-4 h-4 text-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </div>
+          {dreamLicense.ownedCount !== undefined && dreamLicense.ownedCount > 0 && (
+            <div className="flex items-center space-x-1 bg-gradient-to-r from-pink-500/20 to-purple-500/20 backdrop-blur-sm border border-white/30 rounded-lg px-2 py-1">
+              <Hash className="w-3 h-3 text-pink-600" />
+              <span className="text-xs font-semibold text-pink-700">{dreamLicense.ownedCount}</span>
+            </div>
+          )}
         </h3>
         
         {/* Personality with better styling */}

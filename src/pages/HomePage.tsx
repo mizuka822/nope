@@ -26,7 +26,8 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
         personality: nft.metadata.personality,
         interactions: Math.floor(Math.random() * 2000) + 500, // Random interactions for demo
         rating: 4.5 + Math.random() * 0.5, // Random rating between 4.5-5.0
-        price: `${(1.5 + Math.random() * 2).toFixed(1)} ETH` // Random price between 1.5-3.5 ETH
+        price: `${(1.5 + Math.random() * 2).toFixed(1)} ETH`, // Random price between 1.5-3.5 ETH
+        ownedCount: Math.floor(Math.random() * 5) + 1 // Random owned count 1-5 for demo
       }));
       setDisplayNFTs(convertedNFTs);
     } else {
@@ -39,7 +40,8 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
           personality: 'Kpop star/Actress | Whispers born in stardust',
           interactions: 1247,
           rating: 4.9,
-          price: '2.5 ETH'
+          price: '2.5 ETH',
+          ownedCount: 3
         },
         {
           id: '2',
@@ -48,7 +50,8 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
           personality: 'MLB superstar | Precision with a heartbeat',
           interactions: 892,
           rating: 4.8,
-          price: '1.8 ETH'
+          price: '1.8 ETH',
+          ownedCount: 1
         },
         {
           id: '3',
@@ -57,7 +60,8 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
           personality: 'Virtual singer | Digital soul, infinite feeling',
           interactions: 634,
           rating: 4.7,
-          price: '3.2 ETH'
+          price: '3.2 ETH',
+          ownedCount: 2
         },
         {
           id: '4',
@@ -66,7 +70,8 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
           personality: 'TV actress | A smile soft as morning rain',
           interactions: 945,
           rating: 4.8,
-          price: '2.1 ETH'
+          price: '2.1 ETH',
+          ownedCount: 5
         }
       ]);
     }

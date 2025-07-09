@@ -3,14 +3,20 @@ import { ethers } from 'ethers';
 import { DreamLicenseNFT, NFTMetadata } from '../types/dreamlicense';
 
 // ERC-721 standard ABI for NFT contracts
-const ERC721_ABI = [
+const ERC1155_ABI = [
+  // ERC1155 functions
+  'function balanceOf(address account, uint256 id) view returns (uint256)',
+  'function balanceOfBatch(address[] accounts, uint256[] ids) view returns (uint256[])',
+  'function uri(uint256 id) view returns (string)',
+  'function totalSupply(uint256 id) view returns (uint256)',
+  // ERC721 fallback functions for compatibility
   'function balanceOf(address owner) view returns (uint256)',
   'function tokenOfOwnerByIndex(address owner, uint256 index) view returns (uint256)',
   'function tokenURI(uint256 tokenId) view returns (string)',
   'function ownerOf(uint256 tokenId) view returns (address)',
   'function name() view returns (string)',
   'function symbol() view returns (string)',
-  'function totalSupply() view returns (uint256)',
+  'function totalSupply() view returns (uint256)'
 ];
 
 // Real contract address provided
@@ -65,7 +71,7 @@ export const useDreamLicenseNFTs = (provider: ethers.BrowserProvider | null, add
 
       const contract = new ethers.Contract(
         DREAMLICENSE_CONTRACT_ADDRESS,
-        ERC721_ABI,
+        ERC1155_ABI,
         provider
       );
 

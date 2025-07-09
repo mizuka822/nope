@@ -14,6 +14,7 @@ export interface DreamLicenseNFT {
   tokenId: string;
   metadata: NFTMetadata;
   tokenURI: string;
+  ownedCount?: number; // For ERC1155 tokens
 }
 
 export interface ZKProof {
