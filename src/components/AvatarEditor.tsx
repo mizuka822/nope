@@ -491,8 +491,11 @@ const AvatarEditor: React.FC<AvatarEditorProps> = ({ currentAvatar, onSave, onCl
                 alt="Crop preview"
                 className="absolute inset-0 w-full h-full object-contain"
                 style={{
+                  left: '50%',
+                  top: '50%',
                   transform: `scale(${cropSettings.scale}) rotate(${cropSettings.rotation}deg)`,
-                  transformOrigin: 'center',
+                  transformOrigin: 'center center',
+                  translate: '-50% -50%',
                 }}
                 draggable={false}
               />
@@ -533,12 +536,13 @@ const AvatarEditor: React.FC<AvatarEditorProps> = ({ currentAvatar, onSave, onCl
                     alt="Cropped preview"
                     className="absolute object-contain"
                     style={{
-                      left: -cropSettings.x,
-                      top: -cropSettings.y,
+                      left: `calc(50% - ${cropSettings.x}px)`,
+                      top: `calc(50% - ${cropSettings.y}px)`,
                       width: containerRef.current?.offsetWidth || 0,
                       height: containerRef.current?.offsetHeight || 0,
                       transform: `scale(${cropSettings.scale}) rotate(${cropSettings.rotation}deg)`,
-                      transformOrigin: `${(containerRef.current?.offsetWidth || 0) / 2}px ${(containerRef.current?.offsetHeight || 0) / 2}px`,
+                      transformOrigin: 'center center',
+                      translate: '-50% -50%',
                     }}
                     draggable={false}
                   />
