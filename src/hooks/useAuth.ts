@@ -50,16 +50,25 @@ export const useAuth = () => {
   useEffect(() => {
     if (wallet.isConnected && wallet.address) {
       // Create user from wallet data
-      const user: User = {
-        id: wallet.address,
-        name: `User ${wallet.address.slice(0, 6)}...${wallet.address.slice(-4)}`,
-        email: `${wallet.address.slice(0, 8)}@wallet.local`,
-        avatar: `https://api.dicebear.com/7.x/identicon/svg?seed=${wallet.address}`,
-        provider: 'wallet',
-        createdAt: new Date(),
-        nftCount: 0, // This would be fetched from the blockchain
-        walletAddress: wallet.address,
-      };
+      const savedUser = localStorage.getItem('user');
+      let user: User;
+      
+      if (savedUser) {
+        try {
+          const parsedUser = JSON.parse(savedUser);
+          // Update wallet address if it changed
+          user = {
+            ...parsedUser,
+            walletAddress: wallet.address,
+            createdAt: new Date(parsedUser.createdAt),
+          };
+        } catch (error) {
+          console.error('Failed to parse saved user:', error);
+          user = createNewUser(wallet.address);
+        }
+      } else {
+        user = createNewUser(wallet.address);
+      }
 
       setAuthState({
         user,
@@ -77,6 +86,17 @@ export const useAuth = () => {
       localStorage.removeItem('user');
     }
   }, [wallet.isConnected, wallet.address]);
+
+  const createNewUser = (address: string): User => ({
+    id: address,
+    name: `User ${address.slice(0, 6)}...${address.slice(-4)}`,
+    email: `${address.slice(0, 8)}@wallet.local`,
+    avatar: `https://api.dicebear.com/7.x/identicon/svg?seed=${address}`,
+    provider: 'wallet',
+    createdAt: new Date(),
+    nftCount: 0, // This would be fetched from the blockchain
+    walletAddress: address,
+  });
 
   // Check for existing session on mount
   useEffect(() => {

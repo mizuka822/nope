@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { User, Settings, LogOut, Wallet, Shield, Calendar, Zap, Camera, Edit3, Image, Star, Copy, ExternalLink } from 'lucide-react';
 import { User as UserType } from '../hooks/useAuth';
+import AvatarEditor from './AvatarEditor';
 
 interface UserMenuProps {
   user: UserType | null;
@@ -24,6 +25,8 @@ const UserMenu: React.FC<UserMenuProps> = ({
   const [editingNickname, setEditingNickname] = useState(false);
   const [nickname, setNickname] = useState(user?.name || '');
   const [copied, setCopied] = useState(false);
+  const [showAvatarEditor, setShowAvatarEditor] = useState(false);
+  const [currentAvatar, setCurrentAvatar] = useState(user?.avatar || '');
 
   const handleWalletLogin = () => {
     onLoginWithWallet();
@@ -39,13 +42,26 @@ const UserMenu: React.FC<UserMenuProps> = ({
   const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        alert('File size must be less than 5MB');
+        return;
+      }
+      
       const reader = new FileReader();
       reader.onload = (event) => {
-        // In a real app, you'd upload to IPFS or a decentralized storage
-        console.log('Avatar uploaded:', event.target?.result);
+        const result = event.target?.result as string;
+        setCurrentAvatar(result);
+        // In a real app, you'd upload to IPFS or decentralized storage
+        console.log('Avatar uploaded to local storage');
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleAvatarSave = (newAvatar: string) => {
+    setCurrentAvatar(newAvatar);
+    // In a real app, you'd save to IPFS and update user profile on-chain
+    console.log('Avatar saved:', newAvatar.substring(0, 50) + '...');
   };
 
   const handleNicknameEdit = () => {
@@ -229,9 +245,9 @@ const UserMenu: React.FC<UserMenuProps> = ({
               <h4 className="font-semibold text-gray-900 mb-3">Avatar</h4>
               <div className="flex items-center space-x-4">
                 <div className="relative">
-                  {user?.avatar ? (
+                  {currentAvatar ? (
                     <img
-                      src={user.avatar}
+                      src={currentAvatar}
                       alt={user.name}
                       className="w-20 h-20 rounded-full object-cover"
                     />
@@ -240,22 +256,26 @@ const UserMenu: React.FC<UserMenuProps> = ({
                       <User className="w-10 h-10 text-pink-600" />
                     </div>
                   )}
-                  <label className="absolute -bottom-1 -right-1 w-8 h-8 bg-pink-500/80 rounded-full flex items-center justify-center cursor-pointer hover:bg-pink-500 transition-colors">
+                  <button
+                    onClick={() => setShowAvatarEditor(true)}
+                    className="absolute -bottom-1 -right-1 w-8 h-8 bg-pink-500/80 rounded-full flex items-center justify-center cursor-pointer hover:bg-pink-500 transition-colors"
+                  >
                     <Camera className="w-4 h-4 text-white" />
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleAvatarUpload}
-                      className="hidden"
-                    />
-                  </label>
+                  </button>
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-gray-700 mb-2">Upload a new avatar to IPFS</p>
+                  <p className="text-sm text-gray-700 mb-2">Customize your avatar with our editor</p>
                   <div className="flex space-x-2">
-                    <label className="px-3 py-1 bg-gradient-to-r from-pink-500/20 to-gray-500/20 backdrop-blur-sm border border-white/30 rounded-lg text-xs font-medium text-gray-700 hover:from-pink-500/30 hover:to-gray-500/30 transition-all duration-300 cursor-pointer flex items-center space-x-1">
+                    <button
+                      onClick={() => setShowAvatarEditor(true)}
+                      className="px-3 py-1 bg-gradient-to-r from-pink-500/20 to-gray-500/20 backdrop-blur-sm border border-white/30 rounded-lg text-xs font-medium text-gray-700 hover:from-pink-500/30 hover:to-gray-500/30 transition-all duration-300 flex items-center space-x-1"
+                    >
+                      <Edit3 className="w-3 h-3" />
+                      <span>Edit Avatar</span>
+                    </button>
+                    <label className="px-3 py-1 bg-gradient-to-r from-blue-500/20 to-blue-400/20 backdrop-blur-sm border border-white/30 rounded-lg text-xs font-medium text-gray-700 hover:from-blue-500/30 hover:to-blue-400/30 transition-all duration-300 cursor-pointer flex items-center space-x-1">
                       <Image className="w-3 h-3" />
-                      <span>Choose File</span>
+                      <span>Upload</span>
                       <input
                         type="file"
                         accept="image/*"
@@ -438,6 +458,15 @@ const UserMenu: React.FC<UserMenuProps> = ({
             </div>
           </div>
         </div>
+      )}
+
+      {/* Avatar Editor Modal */}
+      {showAvatarEditor && (
+        <AvatarEditor
+          currentAvatar={currentAvatar}
+          onSave={handleAvatarSave}
+          onClose={() => setShowAvatarEditor(false)}
+        />
       )}
     </div>
   );
