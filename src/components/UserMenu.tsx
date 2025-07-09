@@ -90,11 +90,11 @@ const UserMenu: React.FC<UserMenuProps> = ({
         </button>
 
         {isOpen && (
-          <div className="absolute right-0 top-full mt-2 w-80 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl p-6 z-50">
+          <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl border border-gray/20 shadow-2xl p-6 z-50">
             <div className="text-center">
               <Wallet className="w-12 h-12 mx-auto mb-4 text-pink-600" />
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Connect Your Wallet</h3>
-              <p className="text-sm text-gray-600 mb-6">Connect your MetaMask wallet to access Melodyn and your NFTs</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Connect Your Wallet</h3>
+              <p className="text-sm text-gray-700 mb-6">Connect your MetaMask wallet to access Melodyn and your NFTs</p>
               
               {error && (
                 <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
@@ -105,11 +105,11 @@ const UserMenu: React.FC<UserMenuProps> = ({
               <button
                 onClick={handleWalletLogin}
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-orange-500/20 to-orange-400/20 backdrop-blur-sm border border-white/30 rounded-xl py-3 px-4 text-sm font-medium text-gray-700 hover:from-orange-500/30 hover:to-orange-400/30 transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-gradient-to-r from-orange-500/20 to-orange-400/20 border border-gray-300 rounded-xl py-3 px-4 text-sm font-medium text-gray-800 hover:from-orange-500/30 hover:to-orange-400/30 transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <>
-                    <div className="w-4 h-4 border-2 border-gray-600 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-4 h-4 border-2 border-gray-800 border-t-transparent rounded-full animate-spin"></div>
                     <span>Connecting...</span>
                   </>
                 ) : (
