@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Sparkles, Crown } from 'lucide-react';
+import { Heart, Sparkles } from 'lucide-react';
 
 interface DreamLicenseData {
   id: string;
@@ -20,14 +20,6 @@ const DreamLicenseCard: React.FC<DreamLicenseCardProps> = ({ dreamLicense }) => 
     <div className="relative bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-2xl hover:shadow-pink-500/20 transition-all duration-500 hover:-translate-y-2 group overflow-hidden">
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      
-      {/* Premium badge */}
-      <div className="absolute top-4 left-4 z-10">
-        <div className="flex items-center space-x-1 bg-gradient-to-r from-yellow-400/90 to-orange-500/90 backdrop-blur-sm rounded-full px-2 py-1 text-xs font-bold text-white shadow-lg">
-          <Crown className="w-3 h-3" />
-          <span>PREMIUM</span>
-        </div>
-      </div>
       
       {/* Image container with enhanced effects */}
       <div className="relative mb-6 overflow-hidden rounded-xl">
