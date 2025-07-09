@@ -149,7 +149,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
       </button>
 
       {isOpen && !showSettings && (
-        <div className="absolute right-0 top-full mt-2 w-72 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl p-4 z-50">
+        <div className="absolute right-0 top-full mt-2 w-72 bg-white rounded-2xl border border-gray-200 shadow-2xl p-4 z-50">
           <div className="flex items-center space-x-3 mb-4">
             {user?.avatar ? (
               <img
@@ -163,15 +163,15 @@ const UserMenu: React.FC<UserMenuProps> = ({
               </div>
             )}
             <div className="flex-1">
-              <h4 className="font-semibold text-gray-800">{user?.name}</h4>
+              <h4 className="font-semibold text-gray-900">{user?.name}</h4>
               <div className="flex items-center space-x-2">
-                <p className="text-xs text-gray-600 font-mono">{user?.walletAddress ? formatAddress(user.walletAddress) : ''}</p>
+                <p className="text-xs text-gray-700 font-mono">{user?.walletAddress ? formatAddress(user.walletAddress) : ''}</p>
                 <button
                   onClick={copyAddress}
-                  className="p-1 hover:bg-white/10 rounded transition-colors"
+                  className="p-1 hover:bg-gray-100 rounded transition-colors"
                   title="Copy address"
                 >
-                  <Copy className="w-3 h-3 text-gray-500" />
+                  <Copy className="w-3 h-3 text-gray-600" />
                 </button>
               </div>
             </div>
@@ -186,7 +186,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
           <div className="space-y-2">
             <button
               onClick={() => setShowSettings(true)}
-              className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 hover:bg-white/10 rounded-lg transition-colors"
+              className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <Settings className="w-4 h-4" />
               <span>Settings</span>
@@ -194,7 +194,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
             
             <button
               onClick={() => window.open(`https://etherscan.io/address/${user?.walletAddress}`, '_blank')}
-              className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 hover:bg-white/10 rounded-lg transition-colors"
+              className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <ExternalLink className="w-4 h-4" />
               <span>View on Etherscan</span>
@@ -202,7 +202,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
             
             <button
               onClick={handleLogout}
-              className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-red-600 hover:bg-red-500/10 rounded-lg transition-colors"
+              className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors"
             >
               <LogOut className="w-4 h-4" />
               <span>Disconnect Wallet</span>
@@ -212,12 +212,12 @@ const UserMenu: React.FC<UserMenuProps> = ({
       )}
 
       {showSettings && (
-        <div className="absolute right-0 top-full mt-2 w-[480px] bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl p-6 z-50 max-h-[80vh] overflow-y-auto">
+        <div className="absolute right-0 top-full mt-2 w-[480px] bg-white rounded-2xl border border-gray-200 shadow-2xl p-6 z-50 max-h-[80vh] overflow-y-auto">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-800">Wallet Settings</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Wallet Settings</h3>
             <button
               onClick={() => setShowSettings(false)}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-gray-600 hover:text-gray-800"
             >
               ×
             </button>
@@ -226,7 +226,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
           <div className="space-y-6">
             {/* Avatar Upload Section */}
             <div>
-              <h4 className="font-semibold text-gray-800 mb-3">Avatar</h4>
+              <h4 className="font-semibold text-gray-900 mb-3">Avatar</h4>
               <div className="flex items-center space-x-4">
                 <div className="relative">
                   {user?.avatar ? (
@@ -251,7 +251,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                   </label>
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-gray-600 mb-2">Upload a new avatar to IPFS</p>
+                  <p className="text-sm text-gray-700 mb-2">Upload a new avatar to IPFS</p>
                   <div className="flex space-x-2">
                     <label className="px-3 py-1 bg-gradient-to-r from-pink-500/20 to-gray-500/20 backdrop-blur-sm border border-white/30 rounded-lg text-xs font-medium text-gray-700 hover:from-pink-500/30 hover:to-gray-500/30 transition-all duration-300 cursor-pointer flex items-center space-x-1">
                       <Image className="w-3 h-3" />
@@ -270,7 +270,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
 
             {/* Nickname Section */}
             <div>
-              <h4 className="font-semibold text-gray-800 mb-3">Display Name</h4>
+              <h4 className="font-semibold text-gray-900 mb-3">Display Name</h4>
               <div className="flex items-center space-x-3">
                 {editingNickname ? (
                   <div className="flex-1 flex space-x-2">
@@ -278,7 +278,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                       type="text"
                       value={nickname}
                       onChange={(e) => setNickname(e.target.value)}
-                      className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm text-gray-800 placeholder-gray-500 focus:outline-none focus:border-pink-500/50"
+                      className="flex-1 bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:border-pink-500"
                       placeholder="Enter your display name"
                     />
                     <button
@@ -296,12 +296,12 @@ const UserMenu: React.FC<UserMenuProps> = ({
                   </div>
                 ) : (
                   <div className="flex-1 flex items-center justify-between">
-                    <span className="text-gray-800">{user?.name}</span>
+                    <span className="text-gray-900">{user?.name}</span>
                     <button
                       onClick={handleNicknameEdit}
-                      className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                      className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                     >
-                      <Edit3 className="w-4 h-4 text-gray-600" />
+                      <Edit3 className="w-4 h-4 text-gray-700" />
                     </button>
                   </div>
                 )}
@@ -310,30 +310,30 @@ const UserMenu: React.FC<UserMenuProps> = ({
 
             {/* Wallet Information */}
             <div>
-              <h4 className="font-semibold text-gray-800 mb-3">Wallet Information</h4>
+              <h4 className="font-semibold text-gray-900 mb-3">Wallet Information</h4>
               <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 bg-gray-900/10 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <div className="flex items-center space-x-3">
                     <Wallet className="w-5 h-5 text-orange-600" />
                     <div>
-                      <p className="text-sm font-medium text-gray-700">Wallet Address</p>
-                      <p className="text-xs text-gray-600 font-mono">{user?.walletAddress}</p>
+                      <p className="text-sm font-medium text-gray-800">Wallet Address</p>
+                      <p className="text-xs text-gray-700 font-mono">{user?.walletAddress}</p>
                     </div>
                   </div>
                   <div className="flex space-x-2">
                     <button
                       onClick={copyAddress}
-                      className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                      className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                       title="Copy address"
                     >
-                      <Copy className="w-4 h-4 text-gray-600" />
+                      <Copy className="w-4 h-4 text-gray-700" />
                     </button>
                     <button
                       onClick={() => window.open(`https://etherscan.io/address/${user?.walletAddress}`, '_blank')}
-                      className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                      className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                       title="View on Etherscan"
                     >
-                      <ExternalLink className="w-4 h-4 text-gray-600" />
+                      <ExternalLink className="w-4 h-4 text-gray-700" />
                     </button>
                   </div>
                 </div>
@@ -342,14 +342,14 @@ const UserMenu: React.FC<UserMenuProps> = ({
 
             {/* Owned NFTs Section */}
             <div>
-              <h4 className="font-semibold text-gray-800 mb-3">Owned NFTs</h4>
+              <h4 className="font-semibold text-gray-900 mb-3">Owned NFTs</h4>
               <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 bg-gray-900/10 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <div className="flex items-center space-x-3">
                     <Zap className="w-5 h-5 text-pink-600" />
                     <div>
-                      <p className="text-sm font-medium text-gray-700">DreamLicense NFTs</p>
-                      <p className="text-xs text-gray-600">{user?.nftCount || 0} owned</p>
+                      <p className="text-sm font-medium text-gray-800">DreamLicense NFTs</p>
+                      <p className="text-xs text-gray-700">{user?.nftCount || 0} owned</p>
                     </div>
                   </div>
                   <button className="px-3 py-1 bg-gradient-to-r from-pink-500/20 to-gray-500/20 backdrop-blur-sm border border-white/30 rounded-lg text-xs font-medium text-gray-700 hover:from-pink-500/30 hover:to-gray-500/30 transition-all duration-300">
@@ -360,32 +360,32 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 {/* Mock NFT Preview */}
                 {user?.nftCount && user.nftCount > 0 && (
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-gray-900/10 rounded-lg p-3">
+                    <div className="bg-gray-50 rounded-lg p-3">
                       <img
                         src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=100"
                         alt="Aurora Dream"
                         className="w-full h-16 object-cover rounded-lg mb-2"
                       />
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-medium text-gray-700">Aurora Dream</span>
+                        <span className="text-xs font-medium text-gray-800">Aurora Dream</span>
                         <div className="flex items-center space-x-1">
                           <Star className="w-3 h-3 text-yellow-500" />
-                          <span className="text-xs text-gray-600">#1</span>
+                          <span className="text-xs text-gray-700">#1</span>
                         </div>
                       </div>
                     </div>
                     
-                    <div className="bg-gray-900/10 rounded-lg p-3">
+                    <div className="bg-gray-50 rounded-lg p-3">
                       <img
                         src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=100"
                         alt="Luna Mystery"
                         className="w-full h-16 object-cover rounded-lg mb-2"
                       />
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-medium text-gray-700">Luna Mystery</span>
+                        <span className="text-xs font-medium text-gray-800">Luna Mystery</span>
                         <div className="flex items-center space-x-1">
                           <Star className="w-3 h-3 text-yellow-500" />
-                          <span className="text-xs text-gray-600">#2</span>
+                          <span className="text-xs text-gray-700">#2</span>
                         </div>
                       </div>
                     </div>
@@ -396,29 +396,29 @@ const UserMenu: React.FC<UserMenuProps> = ({
 
             {/* Account Details */}
             <div>
-              <h4 className="font-semibold text-gray-800 mb-3">Account Details</h4>
+              <h4 className="font-semibold text-gray-900 mb-3">Account Details</h4>
               <div className="space-y-3">
-                <div className="flex items-center space-x-3 p-3 bg-gray-900/10 rounded-lg">
-                  <Calendar className="w-4 h-4 text-gray-600" />
+                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <Calendar className="w-4 h-4 text-gray-700" />
                   <div>
-                    <p className="text-sm font-medium text-gray-700">Connected Since</p>
-                    <p className="text-xs text-gray-600">{user ? formatDate(user.createdAt) : ''}</p>
+                    <p className="text-sm font-medium text-gray-800">Connected Since</p>
+                    <p className="text-xs text-gray-700">{user ? formatDate(user.createdAt) : ''}</p>
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-3 p-3 bg-gray-900/10 rounded-lg">
+                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
                   <Zap className="w-4 h-4 text-pink-600" />
                   <div>
-                    <p className="text-sm font-medium text-gray-700">Owned NFTs</p>
-                    <p className="text-xs text-gray-600">{user?.nftCount || 0} DreamLicense NFTs</p>
+                    <p className="text-sm font-medium text-gray-800">Owned NFTs</p>
+                    <p className="text-xs text-gray-700">{user?.nftCount || 0} DreamLicense NFTs</p>
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-3 p-3 bg-gray-900/10 rounded-lg">
+                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
                   <Shield className="w-4 h-4 text-green-600" />
                   <div>
-                    <p className="text-sm font-medium text-gray-700">Privacy Status</p>
-                    <p className="text-xs text-gray-600">Zero-Knowledge Protected</p>
+                    <p className="text-sm font-medium text-gray-800">Privacy Status</p>
+                    <p className="text-xs text-gray-700">Zero-Knowledge Protected</p>
                   </div>
                 </div>
               </div>
@@ -426,6 +426,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
 
             {/* Actions */}
             <div className="pt-4 border-t border-white/10">
+            <div className="pt-4 border-t border-gray-200">
               <button
                 onClick={handleLogout}
                 className="w-full bg-gradient-to-r from-red-500/20 to-red-400/20 backdrop-blur-sm border border-white/30 rounded-xl py-3 px-4 text-sm font-medium text-red-600 hover:from-red-500/30 hover:to-red-400/30 transition-all duration-300 flex items-center justify-center space-x-2"
