@@ -72,6 +72,16 @@ export const useDreamLicenseNFTs = (provider: ethers.BrowserProvider | null, add
       setLoading(true);
       setError(null);
 
+      // Check if connected to Sepolia testnet (chain ID: 11155111)
+      const network = await provider.getNetwork();
+      const sepoliaChainId = 11155111n;
+      
+      if (network.chainId !== sepoliaChainId) {
+        setError(`Please connect to Sepolia testnet. Currently connected to chain ID: ${network.chainId.toString()}`);
+        setNfts([]);
+        return;
+      }
+
       const contract = new ethers.Contract(
         DREAMLICENSE_CONTRACT_ADDRESS,
         ERC1155_ABI,
@@ -227,7 +237,7 @@ export const useDreamLicenseNFTs = (provider: ethers.BrowserProvider | null, add
 
   useEffect(() => {
     fetchNFTs();
-  }, [provider]); // Remove address dependency to load all groups, not just user-owned
+  }, [provider, address]); // Include address dependency to re-trigger when wallet changes
 
   return {
     nfts,
