@@ -169,7 +169,7 @@ const AvatarEditor: React.FC<AvatarEditorProps> = ({ currentAvatar, onSave, onCl
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[100]">
-      <div className="bg-white rounded-2xl p-4 max-w-md w-full mx-4 max-h-[85vh] overflow-y-auto">
+      <div className="bg-white rounded-2xl p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-bold text-gray-900">Edit Avatar</h3>
           <button
@@ -180,12 +180,12 @@ const AvatarEditor: React.FC<AvatarEditorProps> = ({ currentAvatar, onSave, onCl
           </button>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {/* Upload Section */}
           <div>
             <div>
-              <h4 className="font-semibold text-gray-800 mb-2 text-sm">Upload New Image</h4>
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-pink-500 transition-colors">
+              <h4 className="font-semibold text-gray-800 mb-3">Upload New Image</h4>
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-pink-500 transition-colors">
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -193,30 +193,31 @@ const AvatarEditor: React.FC<AvatarEditorProps> = ({ currentAvatar, onSave, onCl
                   onChange={handleFileSelect}
                   className="hidden"
                 />
-                <Upload className="w-6 h-6 text-gray-400 mx-auto mb-2" />
-                <p className="text-xs text-gray-600 mb-2">
+                <Upload className="w-8 h-8 text-gray-400 mx-auto mb-3" />
+                <p className="text-sm text-gray-600 mb-3">
                   Drag & drop an image or click to browse
                 </p>
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="px-3 py-1.5 bg-gradient-to-r from-pink-500/20 to-gray-500/20 border border-gray-300 rounded-lg text-xs font-medium text-gray-700 hover:from-pink-500/30 hover:to-gray-500/30 transition-all duration-300"
+                  className="px-4 py-2 bg-gradient-to-r from-pink-500/20 to-gray-500/20 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:from-pink-500/30 hover:to-gray-500/30 transition-all duration-300"
                 >
                   Choose File
                 </button>
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-sm text-gray-500 mt-3">
                   Supports JPG, PNG, GIF (max 5MB)
                 </p>
               </div>
             </div>
 
-            {/* Quick Options - Horizontal Layout */}
-            <div className="flex space-x-2">
+            {/* Quick Options */}
+            <div className="space-y-3">
+              <h4 className="font-semibold text-gray-800">Quick Options</h4>
               <button
                 onClick={generateRandomAvatar}
-                className="flex-1 flex items-center justify-center space-x-2 px-3 py-2 bg-gradient-to-r from-blue-500/20 to-blue-400/20 border border-gray-300 rounded-lg text-xs font-medium text-gray-700 hover:from-blue-500/30 hover:to-blue-400/30 transition-all duration-300"
+                className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-blue-500/20 to-blue-400/20 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:from-blue-500/30 hover:to-blue-400/30 transition-all duration-300"
               >
-                <Palette className="w-3 h-3" />
-                <span>Random</span>
+                <Palette className="w-4 h-4" />
+                <span>Generate Random Avatar</span>
               </button>
               
               <button
@@ -229,21 +230,21 @@ const AvatarEditor: React.FC<AvatarEditorProps> = ({ currentAvatar, onSave, onCl
                     })
                     .catch(err => console.error('Camera access denied:', err));
                 }}
-                className="flex-1 flex items-center justify-center space-x-2 px-3 py-2 bg-gradient-to-r from-green-500/20 to-green-400/20 border border-gray-300 rounded-lg text-xs font-medium text-gray-700 hover:from-green-500/30 hover:to-green-400/30 transition-all duration-300"
+                className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-green-500/20 to-green-400/20 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:from-green-500/30 hover:to-green-400/30 transition-all duration-300"
               >
-                <Camera className="w-3 h-3" />
-                <span>Camera</span>
+                <Camera className="w-4 h-4" />
+                <span>Take Photo</span>
               </button>
             </div>
           </div>
 
           {/* Preview & Edit Section */}
-          <div className="space-y-3">
+          <div className="space-y-4">
             <div>
-              <h4 className="font-semibold text-gray-800 mb-2 text-sm">Preview</h4>
+              <h4 className="font-semibold text-gray-800 mb-3">Preview</h4>
               <div className="relative">
                 <div 
-                  className="w-32 h-32 mx-auto border-2 border-gray-300 rounded-full overflow-hidden bg-gray-100 relative"
+                  className="w-48 h-48 mx-auto border-2 border-gray-300 rounded-full overflow-hidden bg-gray-100 relative"
                   onMouseMove={handleDragMove}
                   onMouseUp={handleDragEnd}
                   onMouseLeave={handleDragEnd}
@@ -264,8 +265,8 @@ const AvatarEditor: React.FC<AvatarEditorProps> = ({ currentAvatar, onSave, onCl
                   {!selectedImage && !currentAvatar && (
                     <div className="flex items-center justify-center h-full">
                       <div className="text-center">
-                        <Upload className="w-6 h-6 text-gray-400 mx-auto mb-1" />
-                        <p className="text-xs text-gray-500">No image</p>
+                        <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                        <p className="text-sm text-gray-500">No image</p>
                       </div>
                     </div>
                   )}
@@ -275,15 +276,15 @@ const AvatarEditor: React.FC<AvatarEditorProps> = ({ currentAvatar, onSave, onCl
 
             {/* Controls */}
             {(selectedImage || currentAvatar) && (
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div>
-                  <h5 className="font-medium text-gray-700 mb-1 text-xs">Zoom</h5>
-                  <div className="flex items-center space-x-2">
+                  <h5 className="font-medium text-gray-700 mb-2">Zoom</h5>
+                  <div className="flex items-center space-x-3">
                     <button
                       onClick={() => handleScaleChange(-0.1)}
-                      className="p-1.5 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                      className="p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
                     >
-                      <ZoomOut className="w-3 h-3" />
+                      <ZoomOut className="w-4 h-4" />
                     </button>
                     <div className="flex-1 bg-gray-200 rounded-full h-2">
                       <div
@@ -293,24 +294,24 @@ const AvatarEditor: React.FC<AvatarEditorProps> = ({ currentAvatar, onSave, onCl
                     </div>
                     <button
                       onClick={() => handleScaleChange(0.1)}
-                      className="p-1.5 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                      className="p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
                     >
-                      <ZoomIn className="w-3 h-3" />
+                      <ZoomIn className="w-4 h-4" />
                     </button>
                   </div>
-                  <p className="text-xs text-gray-500 mt-0.5 text-center">Scale: {cropSettings.scale.toFixed(1)}x</p>
+                  <p className="text-sm text-gray-500 mt-1 text-center">Scale: {cropSettings.scale.toFixed(1)}x</p>
                 </div>
 
                 <div>
-                  <h5 className="font-medium text-gray-700 mb-1 text-xs">Rotation</h5>
+                  <h5 className="font-medium text-gray-700 mb-2">Rotation</h5>
                   <button
                     onClick={handleRotationChange}
-                    className="w-full flex items-center justify-center space-x-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                    className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
                   >
-                    <RotateCw className="w-3 h-3" />
-                    <span className="text-xs">Rotate 90°</span>
+                    <RotateCw className="w-4 h-4" />
+                    <span className="text-sm">Rotate 90°</span>
                   </button>
-                  <p className="text-xs text-gray-500 mt-0.5 text-center">Current: {cropSettings.rotation}°</p>
+                  <p className="text-sm text-gray-500 mt-1 text-center">Current: {cropSettings.rotation}°</p>
                 </div>
               </div>
             )}
@@ -318,26 +319,26 @@ const AvatarEditor: React.FC<AvatarEditorProps> = ({ currentAvatar, onSave, onCl
         </div>
 
         {/* Action Buttons */}
-        <div className="flex justify-end space-x-2 mt-4 pt-4 border-t border-gray-200">
+        <div className="flex justify-end space-x-3 mt-6 pt-6 border-t border-gray-200">
           <button
             onClick={onClose}
-            className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-800 transition-colors"
+            className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={generateAvatar}
             disabled={isProcessing || (!selectedImage && !currentAvatar)}
-            className="px-4 py-1.5 bg-gradient-to-r from-pink-500/20 to-gray-500/20 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:from-pink-500/30 hover:to-gray-500/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+            className="px-6 py-2 bg-gradient-to-r from-pink-500/20 to-gray-500/20 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:from-pink-500/30 hover:to-gray-500/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
           >
             {isProcessing ? (
               <>
-                <div className="w-3 h-3 border-2 border-gray-700 border-t-transparent rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-gray-700 border-t-transparent rounded-full animate-spin" />
                 <span>Processing...</span>
               </>
             ) : (
               <>
-                <Check className="w-3 h-3" />
+                <Check className="w-4 h-4" />
                 <span>Save Avatar</span>
               </>
             )}
