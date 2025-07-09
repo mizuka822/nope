@@ -13,7 +13,7 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
   const { wallet } = useWallet();
-  const { nfts, loading, error } = useDreamLicenseNFTs(wallet.provider, null); // Load all NFTs, not user-specific
+  const { nfts, loading, error } = useDreamLicenseNFTs(wallet.provider, wallet.address); // Pass wallet address for balance checking
   const [displayNFTs, setDisplayNFTs] = useState<DreamLicenseNFT[]>([]);
 
   // Convert NFT data to DreamLicense format for display
@@ -27,7 +27,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
         interactions: Math.floor(Math.random() * 2000) + 500, // Random interactions for demo
         rating: 4.5 + Math.random() * 0.5, // Random rating between 4.5-5.0
         price: `${(1.5 + Math.random() * 2).toFixed(1)} ETH`, // Random price between 1.5-3.5 ETH
-        ownedCount: Math.floor(Math.random() * 5) + 1 // Random owned count 1-5 for demo
+        ownedCount: nft.ownedCount || 0 // Use real owned count from contract
       }));
       setDisplayNFTs(convertedNFTs);
     } else {

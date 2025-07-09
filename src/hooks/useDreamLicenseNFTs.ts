@@ -9,6 +9,9 @@ const ERC1155_ABI = [
   'function balanceOfBatch(address[] accounts, uint256[] ids) view returns (uint256[])',
   'function uri(uint256 id) view returns (string)',
   'function totalSupply(uint256 id) view returns (uint256)',
+  // Custom contract functions for group management
+  'function getGroupCount() external view returns (uint256)',
+  'function groupIds(uint256 index) public view returns (uint256)',
   // ERC721 fallback functions for compatibility
   'function balanceOf(address owner) view returns (uint256)',
   'function tokenOfOwnerByIndex(address owner, uint256 index) view returns (uint256)',
@@ -83,74 +86,87 @@ export const useDreamLicenseNFTs = (provider: ethers.BrowserProvider | null, add
 
       console.log(`Connected to contract: ${contractName} (${contractSymbol})`);
 
-      // Get balance of NFTs owned by the user
-      const balance = await contract.balanceOf(address);
-      const balanceNumber = Number(balance);
+      // Get real group count and group IDs from contract
+      const groupCount = await contract.getGroupCount();
+      const groupCountNumber = Number(groupCount);
+      
+      console.log(`Contract has ${groupCountNumber} groups`);
 
-      console.log(`User owns ${balanceNumber} NFTs`);
-
-      if (balanceNumber === 0) {
+      if (groupCountNumber === 0) {
         setNfts([]);
         return;
       }
 
-      const nftPromises = [];
-      
-      // Fetch each NFT owned by the user
-      for (let i = 0; i < balanceNumber; i++) {
-        nftPromises.push(
-          (async () => {
-            try {
-              const tokenId = await contract.tokenOfOwnerByIndex(address, i);
-              const tokenIdString = tokenId.toString();
-              
-              console.log(`Fetching NFT #${tokenIdString}`);
-              
-              const tokenURI = await contract.tokenURI(tokenId);
-              console.log(`Token URI for #${tokenIdString}:`, tokenURI);
-              
-              // Fetch metadata
-              const metadata = await fetchMetadataFromURI(tokenURI);
-              
-              if (!metadata) {
-                // Fallback metadata if fetch fails
-                return {
-                  tokenId: tokenIdString,
-                  metadata: {
-                    id: tokenIdString,
-                    name: `DreamLicense #${tokenIdString}`,
-                    description: 'A unique AI companion NFT',
-                    image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400',
-                    personality: 'Mysterious and enchanting companion',
-                    attributes: [
-                      { trait_type: 'Token ID', value: tokenIdString },
-                      { trait_type: 'Contract', value: contractName }
-                    ]
-                  },
-                  tokenURI,
-                };
-              }
-              
-              return {
-                tokenId: tokenIdString,
-                metadata: {
-                  ...metadata,
-                  id: tokenIdString,
-                },
-                tokenURI,
-              };
-            } catch (err) {
-              console.error(`Failed to fetch NFT at index ${i}:`, err);
-              return null;
-            }
-          })()
-        );
+      // Fetch all group IDs
+      const groupIdPromises = [];
+      for (let i = 0; i < groupCountNumber; i++) {
+        groupIdPromises.push(contract.groupIds(i));
       }
+      
+      const groupIds = await Promise.all(groupIdPromises);
+      console.log('Group IDs:', groupIds.map(id => id.toString()));
+
+      // Get user's balance for each group (if address provided)
+      let userBalances: bigint[] = [];
+      if (address) {
+        const balancePromises = groupIds.map(groupId => 
+          contract.balanceOf(address, groupId).catch(() => BigInt(0))
+        );
+        userBalances = await Promise.all(balancePromises);
+      }
+
+      // Fetch metadata for each group
+      const nftPromises = groupIds.map(async (groupId, index) => {
+        try {
+          const groupIdString = groupId.toString();
+          console.log(`Fetching metadata for group #${groupIdString}`);
+          
+          // Get token URI for this group
+          const tokenURI = await contract.uri(groupId);
+          console.log(`Token URI for group #${groupIdString}:`, tokenURI);
+          
+          // Fetch metadata
+          const metadata = await fetchMetadataFromURI(tokenURI);
+          
+          if (!metadata) {
+            // Fallback metadata if fetch fails
+            return {
+              tokenId: groupIdString,
+              metadata: {
+                id: groupIdString,
+                name: `DreamLicense Group #${groupIdString}`,
+                description: 'A unique AI companion NFT group',
+                image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400',
+                personality: 'Mysterious and enchanting companion',
+                attributes: [
+                  { trait_type: 'Group ID', value: groupIdString },
+                  { trait_type: 'Contract', value: contractName }
+                ]
+              },
+              tokenURI,
+              ownedCount: address ? Number(userBalances[index] || 0) : 0,
+            };
+          }
+          
+          return {
+            tokenId: groupIdString,
+            metadata: {
+              ...metadata,
+              id: groupIdString,
+            },
+            tokenURI,
+            ownedCount: address ? Number(userBalances[index] || 0) : 0,
+          };
+        } catch (err) {
+          console.error(`Failed to fetch group at index ${index}:`, err);
+          return null;
+        }
+      });
 
       const results = await Promise.all(nftPromises);
       const validNFTs = results.filter((nft): nft is DreamLicenseNFT => nft !== null);
       
-      console.log(`Successfully loaded ${validNFTs.length} NFTs`);
+      console.log(`Successfully loaded ${validNFTs.length} groups`);
       setNfts(validNFTs);
 
     } catch (err: any) {
@@ -158,11 +174,11 @@ export const useDreamLicenseNFTs = (provider: ethers.BrowserProvider | null, add
       
       // Check if it's a network/contract issue
       if (err.code === 'CALL_EXCEPTION' || err.code === 'BAD_DATA') {
-        setError(`Contract not found or not deployed on current network. Please ensure you're connected to the correct network.`);
+        setError(`Contract not found or functions not available. Please ensure you're connected to Sepolia network.`);
       } else if (err.code === 'NETWORK_ERROR') {
         setError('Network error. Please check your connection and try again.');
       } else {
-        setError(err.message || 'Failed to fetch NFTs from contract');
+        setError(err.message || 'Failed to fetch groups from contract');
       }
       
       // For demo purposes, show some mock NFTs if real contract fails
@@ -182,7 +198,8 @@ export const useDreamLicenseNFTs = (provider: ethers.BrowserProvider | null, add
               { trait_type: 'Rarity', value: 'Legendary' },
               { trait_type: 'Contract', value: 'Demo Mode' }
             ]
-          }
+          },
+          ownedCount: 3
         },
         {
           tokenId: '2',
@@ -199,7 +216,8 @@ export const useDreamLicenseNFTs = (provider: ethers.BrowserProvider | null, add
               { trait_type: 'Rarity', value: 'Epic' },
               { trait_type: 'Contract', value: 'Demo Mode' }
             ]
-          }
+          },
+          ownedCount: 1
         }
       ]);
     } finally {
@@ -209,7 +227,7 @@ export const useDreamLicenseNFTs = (provider: ethers.BrowserProvider | null, add
 
   useEffect(() => {
     fetchNFTs();
-  }, [provider, address]);
+  }, [provider]); // Remove address dependency to load all groups, not just user-owned
 
   return {
     nfts,
