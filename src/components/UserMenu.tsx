@@ -426,14 +426,15 @@ const UserMenu: React.FC<UserMenuProps> = ({
 
             {/* Actions */}
             <div className="pt-4 border-t border-white/10">
-            <div className="pt-4 border-t border-gray-200">
-              <button
-                onClick={handleLogout}
-                className="w-full bg-gradient-to-r from-red-500/20 to-red-400/20 backdrop-blur-sm border border-white/30 rounded-xl py-3 px-4 text-sm font-medium text-red-600 hover:from-red-500/30 hover:to-red-400/30 transition-all duration-300 flex items-center justify-center space-x-2"
-              >
-                <LogOut className="w-4 h-4" />
-                <span>Disconnect Wallet</span>
-              </button>
+              <div className="pt-4 border-t border-gray-200">
+                <button
+                  onClick={handleLogout}
+                  className="w-full bg-gradient-to-r from-red-500/20 to-red-400/20 backdrop-blur-sm border border-white/30 rounded-xl py-3 px-4 text-sm font-medium text-red-600 hover:from-red-500/30 hover:to-red-400/30 transition-all duration-300 flex items-center justify-center space-x-2"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Disconnect Wallet</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
