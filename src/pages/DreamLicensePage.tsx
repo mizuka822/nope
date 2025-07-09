@@ -82,7 +82,10 @@ const DreamLicensePage: React.FC = () => {
             DreamLicense NFT
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Access your exclusive AI companions with zero-knowledge verification
+            Access your exclusive AI companions with zero-knowledge verification<br/>
+            <span className="text-sm font-mono bg-white/20 px-3 py-1 rounded-lg mt-2 inline-block">
+              Contract: 0xC27c894F4661A0FE5fF36341F298d33cd4876B44
+            </span>
           </p>
         </div>
 

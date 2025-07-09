@@ -54,7 +54,8 @@ const WalletConnection: React.FC<WalletConnectionProps> = ({
         </div>
         <h3 className="text-xl font-bold text-gray-800 mb-2">Connect Your Wallet</h3>
         <p className="text-gray-600 mb-6">
-          Connect your MetaMask wallet to access your DreamLicense NFTs
+          Connect your MetaMask wallet to access your DreamLicense NFTs from contract:<br/>
+          <code className="text-xs font-mono bg-gray-100 px-2 py-1 rounded">0xC27c894F4661A0FE5fF36341F298d33cd4876B44</code>
         </p>
         
         {error && (

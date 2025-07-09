@@ -84,6 +84,10 @@ const NFTSelector: React.FC<NFTSelectorProps> = ({
                 src={nft.metadata.image}
                 alt={nft.metadata.name}
                 className="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400';
+                }}
               />
               <div className="absolute top-3 right-3 bg-pink-500/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center space-x-1">
                 <Star className="w-3 h-3 text-white" />
@@ -105,9 +109,12 @@ const NFTSelector: React.FC<NFTSelectorProps> = ({
               {nft.metadata.attributes.slice(0, 3).map((attr, index) => (
                 <div key={index} className="flex items-center justify-between text-xs">
                   <span className="text-gray-500">{attr.trait_type}</span>
-                  <span className="text-gray-700 font-medium">{attr.value}</span>
+                  <span className="text-gray-700 font-medium truncate ml-2">{attr.value}</span>
                 </div>
               ))}
+              {nft.metadata.attributes.length === 0 && (
+                <div className="text-xs text-gray-500 italic">No attributes available</div>
+              )}
             </div>
 
             <div className="mt-4 pt-4 border-t border-white/10">
@@ -116,6 +123,19 @@ const NFTSelector: React.FC<NFTSelectorProps> = ({
                 <span className="font-mono text-pink-600">#{nft.tokenId}</span>
               </div>
             </div>
+            
+            {nft.tokenURI && (
+              <div className="mt-2">
+                <a
+                  href={nft.tokenURI}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-blue-600 hover:underline"
+                >
+                  View Metadata
+                </a>
+              </div>
+            )}
           </div>
         ))}
       </div>
