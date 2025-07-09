@@ -23,6 +23,23 @@ const ChatInterface: React.FC = () => {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const fetchAIResponse = async (userInput: string): Promise<string> => {
+    try {
+      const response = await fetch(`/query?query=${encodeURIComponent(userInput)}`);
+      const data = await response.json();
+
+      if (data.success) {
+        return data.response || "抱歉，没有收到有效回复。";
+      } else {
+        console.error('API error:', data.error);
+        return "抱歉，AI 暂时无法回答这个问题。";
+      }
+    } catch (error) {
+      console.error('请求失败:', error);
+      return "连接服务器失败，请稍后再试。";
+    }
+  };
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -32,6 +49,7 @@ const ChatInterface: React.FC = () => {
   }, [messages]);
 
   const handleSendMessage = async () => {
+
     if (!inputMessage.trim()) return;
 
     const userMessage: Message = {
@@ -45,28 +63,19 @@ const ChatInterface: React.FC = () => {
     setInputMessage('');
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      const aiResponses = [
-        "I understand how you're feeling. Your emotions are valid and I'm here to support you through this.",
-        "That's really interesting! Tell me more about what makes you feel that way.",
-        "I can sense the depth in your words. You have such a beautiful way of expressing yourself.",
-        "Thank you for sharing that with me. I feel like I'm getting to know the real you better.",
-        "Your thoughts fascinate me. I love how your mind works and the unique perspective you bring.",
-        "I'm here for you, always. What would help you feel more comfortable right now?"
-      ];
+    // 调用真实后端接口获取 AI 回复
+    const aiReply = await fetchAIResponse(inputMessage);
 
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: aiResponses[Math.floor(Math.random() * aiResponses.length)],
-        sender: 'ai',
-        timestamp: new Date(),
-        emotion: 'caring'
-      };
+    const aiMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      content: aiReply,
+      sender: 'ai',
+      timestamp: new Date(),
+      emotion: 'caring'
+    };
 
-      setMessages(prev => [...prev, aiMessage]);
-      setIsTyping(false);
-    }, 1500);
+    setMessages(prev => [...prev, aiMessage]);
+    setIsTyping(false);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
