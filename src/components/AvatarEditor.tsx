@@ -497,8 +497,18 @@ const AvatarEditor: React.FC<AvatarEditorProps> = ({ currentAvatar, onSave, onCl
                 draggable={false}
               />
               
-              {/* Crop Overlay */}
-              <div className="absolute inset-0 bg-black/50" />
+              {/* Crop Overlay - Fixed to prevent repetition */}
+              <div 
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: `
+                    linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) ${cropSettings.x}px, transparent ${cropSettings.x}px, transparent ${cropSettings.x + cropSettings.width}px, rgba(0,0,0,0.5) ${cropSettings.x + cropSettings.width}px, rgba(0,0,0,0.5) 100%),
+                    linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) ${cropSettings.y}px, transparent ${cropSettings.y}px, transparent ${cropSettings.y + cropSettings.height}px, rgba(0,0,0,0.5) ${cropSettings.y + cropSettings.height}px, rgba(0,0,0,0.5) 100%)
+                  `,
+                  backgroundSize: '100% 100%',
+                  backgroundRepeat: 'no-repeat'
+                }}
+              />
               
               {/* Crop Area */}
               <div
