@@ -149,7 +149,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
       </button>
 
       {isOpen && !showSettings && (
-        <div className="absolute right-0 top-full mt-2 w-72 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl p-4 z-50">
+        <div className="absolute right-0 top-full mt-2 w-72 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl p-4 z-50 opacity-0">
           <div className="flex items-center space-x-3 mb-4">
             {user?.avatar ? (
               <img
