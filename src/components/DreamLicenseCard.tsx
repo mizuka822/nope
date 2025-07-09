@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, Users, Zap, Heart, Sparkles, Crown } from 'lucide-react';
+import { Heart, Sparkles, Crown } from 'lucide-react';
 
 interface DreamLicenseData {
   id: string;
@@ -26,14 +26,6 @@ const DreamLicenseCard: React.FC<DreamLicenseCardProps> = ({ dreamLicense }) => 
         <div className="flex items-center space-x-1 bg-gradient-to-r from-yellow-400/90 to-orange-500/90 backdrop-blur-sm rounded-full px-2 py-1 text-xs font-bold text-white shadow-lg">
           <Crown className="w-3 h-3" />
           <span>PREMIUM</span>
-        </div>
-      </div>
-
-      {/* Rating badge */}
-      <div className="absolute top-4 right-4 z-10">
-        <div className="flex items-center space-x-1 bg-black/20 backdrop-blur-sm rounded-full px-2 py-1 text-xs font-medium text-white">
-          <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-          <span>{dreamLicense.rating}</span>
         </div>
       </div>
       
@@ -66,38 +58,15 @@ const DreamLicenseCard: React.FC<DreamLicenseCardProps> = ({ dreamLicense }) => 
       {/* Content section */}
       <div className="relative z-10">
         {/* Name with enhanced typography */}
-        <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-pink-700 transition-colors duration-300 flex items-center space-x-2">
+        <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-pink-700 transition-colors duration-300 flex items-center space-x-2">
           <span>{dreamLicense.name}</span>
           <Sparkles className="w-4 h-4 text-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </h3>
         
         {/* Personality with better styling */}
-        <p className="text-sm text-gray-600 mb-4 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
+        <p className="text-sm text-gray-600 mb-6 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
           {dreamLicense.personality}
         </p>
-        
-        {/* Stats section with enhanced design */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center space-x-1 text-sm text-gray-500 group-hover:text-gray-600 transition-colors duration-300">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500/20 to-blue-400/20 rounded-full flex items-center justify-center">
-              <Users className="w-4 h-4 text-blue-600" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-medium text-gray-700">{dreamLicense.interactions.toLocaleString()}</span>
-              <span className="text-xs">interactions</span>
-            </div>
-          </div>
-          
-          <div className="flex items-center space-x-1 text-sm">
-            <div className="w-8 h-8 bg-gradient-to-br from-pink-500/20 to-pink-400/20 rounded-full flex items-center justify-center">
-              <Zap className="w-4 h-4 text-pink-600" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-pink-600">{dreamLicense.price}</span>
-              <span className="text-xs text-gray-500">price</span>
-            </div>
-          </div>
-        </div>
         
         {/* Enhanced button */}
         <button className="w-full relative overflow-hidden bg-gradient-to-r from-pink-500/20 to-purple-500/20 backdrop-blur-sm border border-white/30 rounded-xl py-3 px-4 text-sm font-medium text-gray-700 hover:from-pink-500/30 hover:to-purple-500/30 hover:border-white/50 transition-all duration-300 shadow-lg hover:shadow-pink-500/20 group/button">
