@@ -168,8 +168,7 @@ const AvatarEditor: React.FC<AvatarEditorProps> = ({ currentAvatar, onSave, onCl
   }, [onSave, onClose]);
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[100]">
-      <div className="bg-white rounded-2xl p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+    <div className="absolute right-0 top-full mt-2 w-[480px] bg-white rounded-2xl border border-gray-200 shadow-2xl p-6 z-50 max-h-[80vh] overflow-y-auto">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-bold text-gray-900">Edit Avatar</h3>
           <button
@@ -347,7 +346,6 @@ const AvatarEditor: React.FC<AvatarEditorProps> = ({ currentAvatar, onSave, onCl
 
         {/* Hidden canvas for processing */}
         <canvas ref={canvasRef} className="hidden" />
-      </div>
     </div>
   );
 };
